@@ -47,6 +47,11 @@
 .hexGrid ol:nth-child(odd) {
 	margin-left: 3vmin;
 }
+
+.hexGrid .cell-selected {
+	background: lawngreen;
+}
+
 .hexGrid li:hover {
 	font-weight: bold;
 }
