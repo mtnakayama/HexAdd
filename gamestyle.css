@@ -1,0 +1,52 @@
+#playField {
+	/* maintain 1:1 aspect ratio */
+	/*height: 100vw;
+	width: 100vw;
+	max-width: 100vh;
+	max-height: 100vh;*/
+	height: 100vmin;
+	width: 100vmin;
+	
+	background: gold;
+	overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#playField {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hexGrid {
+	height: 100%;
+	width: 100%;
+}
+
+.hexGrid ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2%;
+  width: 100vmin;
+  height: 5vmin;
+}
+.hexGrid li {
+	display: inline-block;
+	width: 5vmin;
+	height: 100%;
+	margin-right: 2vmin;
+	background: red;
+	
+	text-align: center;
+	vertical-align: middle;
+	line-height: 5vmin;
+	font-size: 4vmin;
+}
+.hexGrid ol:nth-child(odd) {
+	margin-left: 3vmin;
+}
+.hexGrid li:hover {
+	font-weight: bold;
+}
