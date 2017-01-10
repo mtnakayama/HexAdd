@@ -8,9 +8,10 @@ function HexAdd(playField){ //Constructor
 	
 	this.stateMachine = new HexAdd.StateMachine();
 	
-	var rows = 10;
-	var columns = 5;
-	this.setupPlayField(rows, columns);
+	this.rows = 10;
+	this.columns = 5;
+	this.setupPlayField(this.rows, this.columns);
+	this.createCells(10);
 }
 
 HexAdd.CellNotEmptyException = function(message) {
@@ -50,9 +51,7 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 					element: columnItem
 			}
 			var cell = new HexAdd.Cell(cellInit);
-			cell.value = HexAdd.randomInt(0, 10);
-			//columnItem.attr('data-column', col);
-			//columnItem.attr('data-cell-number', cellNum);
+			//cell.value = HexAdd.randomInt(0, 10);
 			columnItem.click({self: this, cell: cell}, this.cellClick);
 			rowList.append(columnItem);
 			cellNum++;
@@ -62,15 +61,41 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 	//console.log(this.cells);
 }
 
-HexAdd.prototype.cellAtCoord = function(coord) {
-	return this.cells[coord.row][coord.col];
+HexAdd.prototype.cellAt = function() {
+	//console.log(arguments);
+	if(arguments[0] instanceof HexAdd.Coord) {
+		var coord = arguments[0];
+		return this.cells[coord.row][coord.col];
+	} else {
+		return this.cells[arguments[0]][arguments[1]];
+	}
+	
+}
+
+HexAdd.prototype.randomCell = function() { //gets random empty cell
+	var cell;
+	var row;
+	var col;
+	do {
+		row = HexAdd.randomInt(0, this.rows);
+		col = HexAdd.randomInt(0, this.columns);
+		cell = this.cellAt(row, col)
+		var cellValue = cell.value
+	} while (cellValue != null);
+	return cell;
+}
+
+HexAdd.prototype.createCells = function(amount) {
+	for(var i=0; i < amount; i++) {
+		this.randomCell().value = Math.pow(2, HexAdd.randomInt(0, 4));
+	}
 }
 
 HexAdd.prototype.moveCell = function(source, dest) {
 	'use strict';
 	var sourceCell = source;
 	var destCell = dest;
-	console.log(sourceCell, destCell);
+	//console.log(sourceCell, destCell);
 	//var sourceCell = this.cellAtCoord(sourceCoord);
 	//var destCell = this.cellAtCoord(destCoord);
 	if(destCell.value === null) {
