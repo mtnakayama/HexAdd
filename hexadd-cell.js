@@ -15,6 +15,26 @@ HexAdd.Cell = function(initObj) {
 }
 
 HexAdd.Cell.prototype.setValue = function(value) {
+	if(value == 0) {
+		value = null;
+	}
 	this._value = value;
 	$(this.element).text(value)
+}
+
+HexAdd.Cell.prototype.select = function(bool) {
+	if(bool === false) {
+		$(this.element).removeClass('cell-selected');
+	} else {
+		$(this.element).addClass('cell-selected');
+	}
+}
+
+HexAdd.Cell.prototype.move = function(destCell) {
+	if(destCell.value == null) { //make sure destination is empty.
+	}
+}
+
+HexAdd.Cell.prototype.copyFromCell = function() {
+	
 }

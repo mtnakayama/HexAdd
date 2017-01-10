@@ -32,7 +32,7 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 					element: columnItem
 			}
 			var cell = new HexAdd.Cell(cellInit);
-			//cell.value = HexAdd.randomInt(0, 10);
+			cell.value = HexAdd.randomInt(0, 10);
 			//columnItem.attr('data-column', col);
 			//columnItem.attr('data-cell-number', cellNum);
 			columnItem.click({self: this, cell: cell}, this.cellClick);
@@ -48,10 +48,8 @@ HexAdd.prototype.cellClick = function(evt){
 	'use strict';
 	var self = evt.data.self; //self is the HexAdd object
 	var cell = evt.data.cell;
-	$(this).addClass('cell-selected');
+	cell.select();
 	console.log(self)
-	var coord = self.getCellCoord(this);
-	console.log(self.getCellValue(this));
 	console.log(cell);
 }
 
