@@ -35,6 +35,11 @@ HexAdd.Cell.prototype.move = function(destCell) {
 	}
 }
 
-HexAdd.Cell.prototype.copyFromCell = function() {
+HexAdd.Cell.prototype.copyFromCell = function(sourceCell) {
+	'use strict';
+	this.value = sourceCell.value;
+}
+
+HexAdd.Cell.prototype.isEmpty = function() {
 	
 }
