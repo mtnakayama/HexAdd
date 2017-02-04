@@ -32,7 +32,7 @@ HexAdd.Coord = function(row, col) {
 HexAdd.prototype.setupPlayField = function(rows, columns){
 	'use strict';
 	//We can't use tables, due to old IE compatibility.
-	this.hexGrid = $('<div class="hexGrid"></div>');
+	this.hexGrid = $('<div class="hexadd-grid"></div>');
 	this.playField.append(this.hexGrid);
 	this.cells = [];
 	var cellNum = 0;
