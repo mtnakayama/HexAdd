@@ -1,13 +1,13 @@
 /**
- * 
+ *
  */
 
 function HexAdd(playField){ //Constructor
 	'use strict';
 	this.playField = $(playField);
-	
+
 	this.stateMachine = new HexAdd.StateMachine();
-	
+
 	this.rows = 10;
 	this.columns = 5;
 	this.setupPlayField(this.rows, this.columns);
@@ -15,12 +15,13 @@ function HexAdd(playField){ //Constructor
 }
 
 HexAdd.CellNotEmptyException = function(message) {
-    this.message = message;
-    // Use V8's native method if available, otherwise fallback
-    if ("captureStackTrace" in Error)
-        Error.captureStackTrace(this, HexAdd.CellNotEmptyException);
-    else
-        this.stack = (new Error()).stack;
+	this.message = message;
+	// Use V8's native method if available, otherwise fallback
+	if ("captureStackTrace" in Error) {
+		Error.captureStackTrace(this, HexAdd.CellNotEmptyException);
+	} else {
+		this.stack = (new Error()).stack;
+	}
 }
 
 HexAdd.Coord = function(row, col) {
@@ -41,14 +42,14 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 		var rowList = $('<ol></ol>');
 		rowList.attr('data-row', i);
 		this.hexGrid.append(rowList);
-		
+
 		for(var col = 0; col < columns; col++) {
 			//create li for each hexagon
 			var columnItem = $('<li></li>');
 			var cellInit = {
-					x: col,
-					y: i,
-					element: columnItem
+				x: col,
+				y: i,
+				element: columnItem
 			}
 			var cell = new HexAdd.Cell(cellInit);
 			//cell.value = HexAdd.randomInt(0, 10);
@@ -69,7 +70,7 @@ HexAdd.prototype.cellAt = function() {
 	} else {
 		return this.cells[arguments[0]][arguments[1]];
 	}
-	
+
 }
 
 HexAdd.prototype.randomCell = function() { //gets random empty cell
