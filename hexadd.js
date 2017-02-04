@@ -52,16 +52,50 @@ HexAdd.CellNotEmptyException = function(message) {
     }
 }
 
-HexAdd.Coord = function(row, col) {
+HexAdd.Coord = function(col, row) {
     /*
     Grid Layout:
     0: 0   1   2   3
-    1:   0   1   2   3
-    2: 0   1   2   3
-    3:   0   1   2   3
+    1:   0   1   2
+    2:-1   0   1   2
+    3:  -1   0   1   2
     */
     this.row = row;
     this.col = col;
+}
+
+HexAdd.Coord.prototype.northeast = function() {
+    return new HexAdd.Coord(this.col + 1, this.row - 1);
+}
+HexAdd.Coord.prototype.northwest = function() {
+    return new HexAdd.Coord(this.col, this.row - 1);
+}
+HexAdd.Coord.prototype.southeast = function() {
+    return new HexAdd.Coord(this.col, this.row + 1);
+}
+HexAdd.Coord.prototype.southwest = function() {
+    return new HexAdd.Coord(this.col - 1, this.row + 1);
+}
+HexAdd.Coord.prototype.east = function() {
+    return new HexAdd.Coord(this.col + 1, this.row);
+}
+HexAdd.Coord.prototype.west = function() {
+    return new HexAdd.Coord(this.col - 1, this.row);
+}
+HexAdd.Coord.prototype.to = function(direction) {
+    if(direction == 'northeast') {
+        return this.northeast();
+    } else if(direction == 'northwest') {
+        return this.northwest();
+    } else if(direction == 'southeast') {
+        return this.southeast();
+    } else if(direction == 'southwest') {
+        return this.southwest();
+    } else if(direction == 'east') {
+        return this.east();
+    } else if(direction == 'west') {
+        return this.west();
+    }
 }
 
 HexAdd.prototype.setupPlayField = function(rows, columns){
@@ -116,7 +150,6 @@ HexAdd.prototype.cellAt = function() {
     } else {
         return this.cells[arguments[0]][arguments[1]];
     }
-
 }
 
 HexAdd.prototype.randomCell = function() { //gets random empty cell
