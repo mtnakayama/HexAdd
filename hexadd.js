@@ -1,6 +1,7 @@
 /**
  *
  */
+'use strict';
 
 function HexAdd(playField){ //Constructor
 	'use strict';
@@ -12,6 +13,33 @@ function HexAdd(playField){ //Constructor
 	this.columns = 5;
 	this.setupPlayField(this.rows, this.columns);
 	this.createCells(10);
+
+	$(document).keydown(this, this.handleKeyPress)
+}
+
+HexAdd.prototype.handleKeyPress = function(evt) {
+	var self = evt.data;
+	var key = evt.which;
+	if ((key >= KeyEnum['0'] && key <= KeyEnum['9']) || key == KeyEnum.p) {
+		switch(key) {
+			case KeyEnum.p:
+			self.stateMachine.togglePlaceMode();
+			break;
+			case KeyEnum['0']:
+			self.stateMachine.placeTile = null;
+			break;
+			case KeyEnum['1']:
+			self.stateMachine.placeTile = 1;
+			break;
+			case KeyEnum['2']:
+			self.stateMachine.placeTile = 2;
+			break;
+			case KeyEnum['3']:
+			self.stateMachine.placeTile = 4;
+			break;
+		}
+		self.hudElement.text('Place: ' + self.stateMachine.placeTile);
+	}
 }
 
 HexAdd.CellNotEmptyException = function(message) {
@@ -32,7 +60,7 @@ HexAdd.Coord = function(row, col) {
 HexAdd.prototype.setupPlayField = function(rows, columns){
 	'use strict';
 	//We can't use tables, due to old IE compatibility.
-	this.hexGrid = $('<div class="hexGrid"></div>');
+	this.hexGrid = $('<div class="hexadd-grid"></div>');
 	this.playField.append(this.hexGrid);
 	this.cells = [];
 	var cellNum = 0;
@@ -60,6 +88,9 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 		}
 	}
 	//console.log(this.cells);
+	this.hudElement = $('<div class="hexadd-hud"></div>');
+	this.playField.append(this.hudElement);
+	this.hudElement.text('Hello world!');
 }
 
 HexAdd.prototype.cellAt = function() {
@@ -112,21 +143,25 @@ HexAdd.prototype.cellClick = function(evt){
 	var self = evt.data.self; //self is the HexAdd object
 	var cell = evt.data.cell;
 	//console.log(self);
-	if(self.stateMachine.selectedCell == null) {
-		self.stateMachine.selectedCell = cell;
-		//cell.select();
-	} else {
-		try {
-			self.moveCell(self.stateMachine.selectedCell, cell);
-		} catch (e) {
-			if(e instanceof HexAdd.CellNotEmptyException) {
-				self.stateMachine.selectedCell = null;
-			} else {
-				throw e;
+	if(self.stateMachine.mode == 'normal') {
+		if(self.stateMachine.selectedCell == null) {
+			self.stateMachine.selectedCell = cell;
+			//cell.select();
+		} else {
+			try {
+				self.moveCell(self.stateMachine.selectedCell, cell);
+			} catch (e) {
+				if(e instanceof HexAdd.CellNotEmptyException) {
+					self.stateMachine.selectedCell = null;
+				} else {
+					throw e;
+				}
 			}
+			//self.stateMachine.selectedCell.select(false);
+			self.stateMachine.selectedCell = null;
 		}
-		//self.stateMachine.selectedCell.select(false);
-		self.stateMachine.selectedCell = null;
+	} else if (self.stateMachine.mode == 'place') {
+		cell.value = self.stateMachine.placeTile;
 	}
 	//console.log(self)
 	//console.log(cell);

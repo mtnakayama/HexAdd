@@ -1,4 +1,4 @@
-#playField {
+.hexadd-game {
 	/* maintain 1:1 aspect ratio */
 	/*height: 100vw;
 	width: 100vw;
@@ -6,25 +6,25 @@
 	max-height: 100vh;*/
 	height: 100vmin;
 	width: 100vmin;
-	
+
 	background: gold;
 	overflow-x: hidden;
     overflow-y: hidden;
 }
 
-#playField {
+.hexadd-game {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.hexGrid {
+.hexadd-grid {
 	height: 100%;
 	width: 100%;
 }
 
-.hexGrid ol {
+.hexadd-grid ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -32,26 +32,31 @@
   width: 100vmin;
   height: 5vmin;
 }
-.hexGrid li {
+.hexadd-grid li {
 	display: inline-block;
 	width: 5vmin;
 	height: 100%;
 	margin-right: 2vmin;
 	background: red;
-	
+
 	text-align: center;
 	vertical-align: middle;
 	line-height: 5vmin;
 	font-size: 4vmin;
 }
-.hexGrid ol:nth-child(odd) {
+.hexadd-grid ol:nth-child(odd) {
 	margin-left: 3vmin;
 }
 
-.hexGrid .cell-selected {
+.hexadd-grid .cell-selected {
 	background: lawngreen;
 }
 
-.hexGrid li:hover {
+.hexadd-grid li:hover {
 	font-weight: bold;
+}
+
+.hexadd-hud {
+	position: relative;
+	bottom: 2em;
 }
