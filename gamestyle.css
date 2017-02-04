@@ -55,3 +55,8 @@
 .hexadd-grid li:hover {
 	font-weight: bold;
 }
+
+.hexadd-hud {
+	position: relative;
+	bottom: 2em;
+}

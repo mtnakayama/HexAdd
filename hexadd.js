@@ -1,6 +1,7 @@
 /**
  *
  */
+'use strict';
 
 function HexAdd(playField){ //Constructor
 	'use strict';
@@ -12,6 +13,34 @@ function HexAdd(playField){ //Constructor
 	this.columns = 5;
 	this.setupPlayField(this.rows, this.columns);
 	this.createCells(10);
+
+	$(document).keydown(this, this.handleKeyPress)
+}
+
+HexAdd.prototype.handleKeyPress = function(evt) {
+	var self = evt.data;
+	var key = evt.which;
+	switch(key) {
+		case KeyEnum.p:
+		self.togglePlace();
+		break;
+		case KeyEnum['0']:
+		self.placeTile = null;
+		break;
+		case KeyEnum['1']:
+		self.placeTile = 1;
+		break;
+		case KeyEnum['2']:
+		self.placeTile = 2;
+		break;
+		case KeyEnum['3']:
+		self.placeTile = 4;
+		break;
+	}
+}
+
+HexAdd.prototype.togglePlace = function() {
+	this.hudElement.text('Place: ' + self.placeTile);
 }
 
 HexAdd.CellNotEmptyException = function(message) {
@@ -60,6 +89,9 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 		}
 	}
 	//console.log(this.cells);
+	this.hudElement = $('<div class="hexadd-hud"></div>');
+	this.playField.append(this.hudElement);
+	this.hudElement.text('Hello world!');
 }
 
 HexAdd.prototype.cellAt = function() {
