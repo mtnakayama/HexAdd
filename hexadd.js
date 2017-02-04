@@ -38,7 +38,7 @@ HexAdd.prototype.handleKeyPress = function(evt) {
 			self.stateMachine.placeTile = 4;
 			break;
 		}
-		self.hudElement.text('Place: ' + self.stateMachine.placeTile);
+		self.updateHud();
 	}
 }
 
@@ -91,6 +91,14 @@ HexAdd.prototype.setupPlayField = function(rows, columns){
 	this.hudElement = $('<div class="hexadd-hud"></div>');
 	this.playField.append(this.hudElement);
 	this.hudElement.text('Hello world!');
+}
+
+HexAdd.prototype.updateHud = function() {
+	if(this.stateMachine.mode == 'normal') {
+		this.hudElement.text('HexAdd');
+	} else {
+		this.hudElement.text('Place: ' + this.stateMachine.placeTile);
+	}
 }
 
 HexAdd.prototype.cellAt = function() {
