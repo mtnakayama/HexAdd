@@ -23,28 +23,23 @@ HexAdd.prototype.handleKeyPress = function(evt) {
 	if ((key >= KeyEnum['0'] && key <= KeyEnum['9']) || key == KeyEnum.p) {
 		switch(key) {
 			case KeyEnum.p:
-			self.togglePlace();
+			self.stateMachine.togglePlaceMode();
 			break;
 			case KeyEnum['0']:
-			self.placeTile = null;
+			self.stateMachine.placeTile = null;
 			break;
 			case KeyEnum['1']:
-			self.placeTile = 1;
+			self.stateMachine.placeTile = 1;
 			break;
 			case KeyEnum['2']:
-			self.placeTile = 2;
+			self.stateMachine.placeTile = 2;
 			break;
 			case KeyEnum['3']:
-			self.placeTile = 4;
+			self.stateMachine.placeTile = 4;
 			break;
 		}
-		self.hudElement.text('Place: ' + self.placeTile);
+		self.hudElement.text('Place: ' + self.stateMachine.placeTile);
 	}
-
-}
-
-HexAdd.prototype.togglePlace = function() {
-
 }
 
 HexAdd.CellNotEmptyException = function(message) {
@@ -148,21 +143,25 @@ HexAdd.prototype.cellClick = function(evt){
 	var self = evt.data.self; //self is the HexAdd object
 	var cell = evt.data.cell;
 	//console.log(self);
-	if(self.stateMachine.selectedCell == null) {
-		self.stateMachine.selectedCell = cell;
-		//cell.select();
-	} else {
-		try {
-			self.moveCell(self.stateMachine.selectedCell, cell);
-		} catch (e) {
-			if(e instanceof HexAdd.CellNotEmptyException) {
-				self.stateMachine.selectedCell = null;
-			} else {
-				throw e;
+	if(self.stateMachine.mode == 'normal') {
+		if(self.stateMachine.selectedCell == null) {
+			self.stateMachine.selectedCell = cell;
+			//cell.select();
+		} else {
+			try {
+				self.moveCell(self.stateMachine.selectedCell, cell);
+			} catch (e) {
+				if(e instanceof HexAdd.CellNotEmptyException) {
+					self.stateMachine.selectedCell = null;
+				} else {
+					throw e;
+				}
 			}
+			//self.stateMachine.selectedCell.select(false);
+			self.stateMachine.selectedCell = null;
 		}
-		//self.stateMachine.selectedCell.select(false);
-		self.stateMachine.selectedCell = null;
+	} else if (self.stateMachine.mode == 'place') {
+		cell.value = self.stateMachine.placeTile;
 	}
 	//console.log(self)
 	//console.log(cell);

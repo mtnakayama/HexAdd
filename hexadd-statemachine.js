@@ -4,7 +4,19 @@ HexAdd.StateMachine = function() {
 		set: function(v) {return this.setSelectedCell(v);}
 	});
 	this.mode = 'normal';
+	this.placeTile = 1; //default place tile
 	this._selectedCell = null;
+}
+
+HexAdd.StateMachine.prototype.togglePlaceMode = function(cell) {
+	'use strict';
+	if(this.mode != 'place') {
+		this.selectedCell = null;
+
+		this.mode = 'place';
+	} else {
+		this.mode = 'normal';
+	}
 }
 
 HexAdd.StateMachine.prototype.setSelectedCell = function(cell) {
