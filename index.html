@@ -1,23 +1,30 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Hex Add Game</title>
-		<link rel="stylesheet" type="text/css" href="normalize.css" />
-		<link rel="stylesheet" type="text/css" href="gamestyle.css" />
-		<script
-			src="https://code.jquery.com/jquery-3.1.1.min.js"
-			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-			crossorigin="anonymous"></script>
-		<script src="keyenum.js"></script>
-		<script src="hexadd.js"></script>
-		<script src="hexadd-cell.js"></script>
-		<script src="hexadd-init.js"></script>
-		<script src="hexadd-statemachine.js"></script>
-	</head>
-	<body>
-		<div id="gameBox">
-			<div id="play-field" class="hexadd-game"></div>
-		</div>
-	</body>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>HexAdd Game</title>
+        <meta name="description" content="HexAdd Puzzle Game">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<link rel="apple-touch-icon" href="apple-touch-icon.png">-->
+        <link rel="stylesheet" href="normalize.css" />
+        <link rel="stylesheet" href="gamestyle.css" />
+        <script src="modernizr.js"></script>
+    </head>
+    <body>
+        <div id="gameBox">
+            <div id="play-field" class="hexadd-game"></div>
+        </div>
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="jquery-3.1.1.min.js"><\/script>')</script>
+    <script src="keyenum.js"></script>
+    <script src="hexadd.js"></script>
+    <script src="hexadd-cell.js"></script>
+    <script src="hexadd-pathfinding.js"></script>
+    <script src="hexadd-statemachine.js"></script>
+    <script src="hexadd-init.js"></script>
+    </body>
 </html>
