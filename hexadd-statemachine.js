@@ -3,6 +3,7 @@ HexAdd.StateMachine = function() {
 		get: function() {return this._selectedCell},
 		set: function(v) {return this.setSelectedCell(v);}
 	});
+	this.mode = 'normal';
 	this._selectedCell = null;
 }
 
