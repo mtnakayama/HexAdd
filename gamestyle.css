@@ -44,7 +44,7 @@
   line-height: 5vmin;
   font-size: 4vmin;
 }
-.hexadd-grid ol:nth-child(odd) {
+.hexadd-grid ol:nth-child(even) {
   margin-left: 6vmin;
 }
 
