@@ -23,7 +23,7 @@ QUnit.test('Path Heuristic 1', function(assert) {
     var start = new HexAdd.Coord(1, 3);
     var end = new HexAdd.Coord(1, 0);
     var dist = 2;
-    var heuristic = HexAdd.pathHeuristic(start, end);
+    var heuristic = HexAdd.prototype.pathHeuristic(start, end);
     assert.ok(heuristic <= dist, 'Result: ' + heuristic + ', Actual: ' + dist + '.');
 });
 
@@ -31,7 +31,7 @@ QUnit.test('Path Heuristic 2', function(assert) {
     var start = new HexAdd.Coord(0, 0);
     var end = new HexAdd.Coord(1, 15);
     var dist = 9;
-    var heuristic = HexAdd.pathHeuristic(start, end);
+    var heuristic = HexAdd.prototype.pathHeuristic(start, end);
     assert.ok(heuristic <= dist, 'Result: ' + heuristic + ', Actual: ' + dist + '.');
 });
 

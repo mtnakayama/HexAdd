@@ -11,7 +11,8 @@ function HexAdd(playField){ //Constructor
 
     this.rows = 10;
     this.columns = 5;
-    this.setupPlayField(this.rows, this.columns);
+    this.graph = new HexAdd.Graph(this.columns, this.rows);
+    this.setupPlayField(this.columns, this.rows);
     this.createCells(10);
 
     $(document).keydown(this, this.handleKeyPress)
@@ -52,34 +53,22 @@ HexAdd.CellNotEmptyException = function(message) {
     }
 }
 
-HexAdd.prototype.setupPlayField = function(rows, columns){
+HexAdd.prototype.setupPlayField = function(){
     'use strict';
     //We can't use tables, due to old IE compatibility.
     this.hexGrid = $('<div class="hexadd-grid"></div>');
     this.playField.append(this.hexGrid);
-    this.cells = [];
-    var cellNum = 0;
-    for(var i = 0; i < rows; i++){
+    for(var row = 0; row < this.rows; row++){
         //Create ol do hold each row.
-        this.cells[i] = [];
         var rowList = $('<ol></ol>');
-        rowList.attr('data-row', i);
         this.hexGrid.append(rowList);
-
-        for(var col = 0; col < columns; col++) {
+        for(var col = 0; col < this.columns; col++) {
             //create li for each hexagon
             var columnItem = $('<li></li>');
-            var cellInit = {
-                x: col,
-                y: i,
-                element: columnItem
-            }
-            var cell = new HexAdd.Cell(cellInit);
-            //cell.value = HexAdd.randomInt(0, 10);
+            var cell = this.graph.cells[col][row]
+            cell.element = columnItem;
             columnItem.click({self: this, cell: cell}, this.cellClick);
             rowList.append(columnItem);
-            cellNum++;
-            this.cells[i][col] = cell;
         }
     }
     //console.log(this.cells);
@@ -96,32 +85,9 @@ HexAdd.prototype.updateHud = function() {
     }
 }
 
-HexAdd.prototype.cellAt = function() {
-    //console.log(arguments);
-    if(arguments[0] instanceof HexAdd.Coord) {
-        var coord = arguments[0];
-        return this.cells[coord.row][coord.col];
-    } else {
-        return this.cells[arguments[0]][arguments[1]];
-    }
-}
-
-HexAdd.prototype.randomCell = function() { //gets random empty cell
-    var cell;
-    var row;
-    var col;
-    do {
-        row = HexAdd.randomInt(0, this.rows);
-        col = HexAdd.randomInt(0, this.columns);
-        cell = this.cellAt(row, col)
-        var cellValue = cell.value
-    } while (cellValue != null);
-    return cell;
-}
-
 HexAdd.prototype.createCells = function(amount) {
     for(var i=0; i < amount; i++) {
-        this.randomCell().value = Math.pow(2, HexAdd.randomInt(0, 4));
+        this.graph.randomCell().value = Math.pow(2, HexAdd.randomInt(0, 4));
     }
 }
 
