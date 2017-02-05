@@ -15,6 +15,15 @@ HexAdd.prototype.findPath = function(start, end) {
     while(!openSet.isEmpty()) {
         //console.log(openSet);
         currentNode = openSet.poll();
+
+        currentNode.element.css('background', 'pink');
+        window.setTimeout(function(elem){
+            return function resetColor() {
+                //console.log('hi')
+                elem.css('background', '');
+            }
+        }(currentNode.element), 500);
+
         //currentNode.element.css('background', 'pink');
         if(currentNode == end) {
             return this.reconstructPath(currentNode)
@@ -26,13 +35,7 @@ HexAdd.prototype.findPath = function(start, end) {
         for(var i = 0; i < neighbors.length; i++) {
             var neighNode = neighbors[i];
 
-            neighNode.element.css('background', 'pink');
-            window.setTimeout(function(elem){
-                return function resetColor() {
-                    //console.log('hi')
-                    elem.css('background', '');
-                }
-            }(neighNode.element), 500);
+
 
 
             if(neighNode.value) {
@@ -51,11 +54,13 @@ HexAdd.prototype.findPath = function(start, end) {
             neighNode.cameFrom = currentNode;
             neighNode.gScore = tentativeGScore;
             neighNode.fScore = neighNode.gScore + this.pathHeuristic(neighNode, end);
-            //@BUG Priority Queue does not reorder if the fscore is updated.
             if(!neighNode.open) {
                 openSet.add(neighNode);
                 neighNode.open = true;
-            }
+            } /*else { //There doesn't seem to be any improved performance with this.
+                //node is already in set, but is now out of order due to the new fScore.
+                //openSet.array.sort(compareFScore)
+            }*/
         }
 
     }
