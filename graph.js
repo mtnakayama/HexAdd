@@ -18,6 +18,11 @@ HexAdd.Graph.prototype.initializeCells = function() {
     }
 }
 
+HexAdd.Graph.prototype.neighbors = function(cell) {
+    /* returns a list of neighbors */
+    var neighbors = [];
+}
+
 HexAdd.Graph.prototype.forEach = function(func, data) {
     /* calls func(cell, [data]) for each cell, `data` is optional */
     for(var col = 0; col < this.columns; col++) {
@@ -39,7 +44,7 @@ HexAdd.Graph.prototype.at = function() {
         return this.cells[coord.col][coord.row];
     } else if (arguments[0] instanceof HexAdd.CubicCoord) {
         // convert to Coord object and call again.
-        return this.at(arguments[0].offset());
+        return this.at(arguments[0].convert());
     } else if (arguments.length == 2) {
         return this.cells[arguments[0]][arguments[1]];
     } else {

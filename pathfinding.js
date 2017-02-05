@@ -19,7 +19,7 @@ HexAdd.prototype.findPath = function(start, end) {
 }
 
 HexAdd.prototype.reconstructPath = function(endNode) {
-
+    
 }
 
 HexAdd.prototype.clearPathfindingData = function() {

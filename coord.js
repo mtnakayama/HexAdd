@@ -26,25 +26,35 @@ HexAdd.Coord.prototype.distance = function(dest) {
     return this.cubic().distance(dest.cubic());
 }
 
-/* Code for axial system.
-HexAdd.Coord.prototype.northeast = function() {
-    return new HexAdd.Coord(this.col + 1, this.row - 1);
+//We're moving clockwise.
+HexAdd.Coord.prototype.north = function() {
+    return new HexAdd.Coord(this.col, this.row - 2);
 }
-HexAdd.Coord.prototype.northwest = function() {
-    return new HexAdd.Coord(this.col, this.row - 1);
+HexAdd.Coord.prototype.northeast = function() {
+    var col = this.col + (this.row & 1);
+    return new HexAdd.Coord(col, this.row - 1);
 }
 HexAdd.Coord.prototype.southeast = function() {
-    return new HexAdd.Coord(this.col, this.row + 1);
+    var col = this.col + (this.row & 1);
+    return new HexAdd.Coord(col, this.row + 1);
+}
+HexAdd.Coord.prototype.south = function() {
+    return new HexAdd.Coord(this.col, this.row + 2);
 }
 HexAdd.Coord.prototype.southwest = function() {
-    return new HexAdd.Coord(this.col - 1, this.row + 1);
+    var col = this.col - ((this.row - 1) & 1);
+    return new HexAdd.Coord(col, this.row + 1);
 }
-HexAdd.Coord.prototype.east = function() {
-    return new HexAdd.Coord(this.col + 1, this.row);
+HexAdd.Coord.prototype.northwest = function() {
+    var col = this.col - ((this.row - 1) & 1);
+    return new HexAdd.Coord(col, this.row - 1);
 }
-HexAdd.Coord.prototype.west = function() {
-    return new HexAdd.Coord(this.col - 1, this.row);
-} */
+
+HexAdd.Coord.prototype.neighbors = function() {
+    return [this.north(), this.northeast(), this.southeast(), this.south(),
+    this.southwest(), this.northwest()];
+}
+
 HexAdd.Coord.prototype.to = function(direction) {
     if(direction == 'northeast') {
         return this.northeast();
@@ -54,11 +64,15 @@ HexAdd.Coord.prototype.to = function(direction) {
         return this.southeast();
     } else if(direction == 'southwest') {
         return this.southwest();
-    } else if(direction == 'east') {
-        return this.east();
-    } else if(direction == 'west') {
-        return this.west();
+    } else if(direction == 'north') {
+        return this.north();
+    } else if(direction == 'south') {
+        return this.south();
     }
+}
+
+HexAdd.Coord.prototype.eq = function(other) {
+    return this.col == other.col && this.row == other.row;
 }
 
 HexAdd.CubicCoord = function(x, y, z) {
@@ -67,12 +81,18 @@ HexAdd.CubicCoord = function(x, y, z) {
     this.z = z;
 }
 
-HexAdd.CubicCoord.prototype.offset = function() {
+
+HexAdd.CubicCoord.prototype.eq = function(other) {
+    return this.x == other.x && this.y == other.y && this.z == other.z;
+}
+
+HexAdd.CubicCoord.prototype.convert = function() {
     /* Convert cubic back to offset coordinates. */
     var col = (this.x - (this.x & 1)) / 2;
     var row = this.z * 2 + this.x;
     return new HexAdd.Coord(col, row);
 }
+
 HexAdd.CubicCoord.prototype.distance = function(dest) {
     /* Calculate Distance between `this` and `dest`. */
     return (Math.abs(this.x - dest.x) + Math.abs(this.y - dest.y) + Math.abs(this.z - dest.z)) / 2;
