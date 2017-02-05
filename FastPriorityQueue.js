@@ -25,6 +25,9 @@
          } // will print 0 1 3 4 5
          x.trim(); // (optional) optimizes memory usage
  */
+ /*
+    Source has been modified by commenting out the Node.js related code at the bottom of the script.
+ */
 "use strict";
 
 var defaultcomparator = function (a, b) {
@@ -162,6 +165,7 @@ FastPriorityQueue.prototype.isEmpty = function () {
     return this.size === 0;
 };
 
+/*
 // just for illustration purposes
 var main = function () {
     // main code
@@ -183,3 +187,4 @@ if (require.main === module) {
 }
 
 module.exports = FastPriorityQueue;
+*/
