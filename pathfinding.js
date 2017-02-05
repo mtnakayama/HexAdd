@@ -72,7 +72,7 @@ HexAdd.prototype.reconstructPath = function(endNode) {
     var path = [];
     var node = endNode;
     while(node) {
-        path.push(node.coord)
+        path.push(node)
         node = node.cameFrom;
     }
     return path.reverse();

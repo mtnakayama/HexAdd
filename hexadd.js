@@ -104,9 +104,21 @@ HexAdd.prototype.moveCell = function(source, dest) {
     //var sourceCell = this.cellAtCoord(sourceCoord);
     //var destCell = this.cellAtCoord(destCoord);
     if(destCell.value === null) {
-        if(this.findPath(source, dest)){
+        var path = this.findPath(source, dest);
+        if(path){
             destCell.copyFromCell(sourceCell);
             sourceCell.value = null;
+            console.log(path);
+            for(var i = 0; i < path.length; i++) {
+                var element = path[i].element;
+                element.css('background', 'orange');
+                window.setTimeout((function(element){
+                    return function() {
+                        element.css('background', '');
+                    }
+                })(element), 750);
+
+            }
         } else {
             console.log('boop');
         }
