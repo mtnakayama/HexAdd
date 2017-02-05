@@ -22,7 +22,7 @@ HexAdd.Coord.prototype.cubic = function() {
 }
 
 HexAdd.Coord.prototype.distance = function(dest) {
-    console.log(this.cubic());
+    //console.log(this.cubic());
     return this.cubic().distance(dest.cubic());
 }
 
@@ -51,8 +51,10 @@ HexAdd.Coord.prototype.northwest = function() {
 }
 
 HexAdd.Coord.prototype.neighbors = function() {
-    return [this.north(), this.northeast(), this.southeast(), this.south(),
+    var neighbors = [this.north(), this.northeast(), this.southeast(), this.south(),
     this.southwest(), this.northwest()];
+    //console.log(neighbors);
+    return neighbors;
 }
 
 HexAdd.Coord.prototype.to = function(direction) {

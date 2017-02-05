@@ -18,9 +18,20 @@ HexAdd.Graph.prototype.initializeCells = function() {
     }
 }
 
-HexAdd.Graph.prototype.neighbors = function(cell) {
+HexAdd.Graph.prototype.in = function(coord) {
+    return coord.col >= 0 && coord.row >= 0 && coord.col < this.columns && coord.row < this.rows;
+};
+
+HexAdd.Graph.prototype.neighborsOf = function(cell) {
     /* returns a list of neighbors */
+    var neighborCoord = cell.coord.neighbors();
     var neighbors = [];
+    for(var i = 0; i < neighborCoord.length; i++) {
+        if(this.in(neighborCoord[i])){
+            neighbors.push(this.at(neighborCoord[i]));
+        }
+    }
+    return neighbors;
 }
 
 HexAdd.Graph.prototype.forEach = function(func, data) {

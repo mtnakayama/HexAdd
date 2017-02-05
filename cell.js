@@ -14,9 +14,6 @@ HexAdd.Cell = function(initObj) {
     }
     //pathfinding data
     this.clearPathfindingData();
-    Object.defineProperty(this, 'totalScore', {
-        get: function() {return this.heuristicScore + this.costScore},
-    });
 }
 
 HexAdd.Cell.prototype.setValue = function(value) {
@@ -54,6 +51,7 @@ HexAdd.Cell.prototype.copyFromCell = function(sourceCell) {
 
 HexAdd.Cell.prototype.clearPathfindingData = function() {
     this.cameFrom = null;
-    this.heuristicScore = null;
-    this.costScore = null;
+    this.gScore = NaN;
+    this.fScore = NaN;
+    this.open = null;
 }

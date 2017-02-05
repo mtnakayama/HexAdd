@@ -40,6 +40,9 @@ HexAdd.prototype.handleKeyPress = function(evt) {
             break;
         }
         self.updateHud();
+    } else if (key == KeyEnum.n) {
+        self.stateMachine.toggleNeighborMode();
+        self.updateHud();
     }
 }
 
@@ -80,7 +83,9 @@ HexAdd.prototype.setupPlayField = function(){
 HexAdd.prototype.updateHud = function() {
     if(this.stateMachine.mode == 'normal') {
         this.hudElement.text('HexAdd');
-    } else {
+    } else if (this.stateMachine.mode == 'neighbor') {
+        this.hudElement.text('Neighbor Mode');
+    } else if (this.stateMachine.mode == 'place'){
         this.hudElement.text('Place: ' + this.stateMachine.placeTile);
     }
 }
@@ -99,8 +104,12 @@ HexAdd.prototype.moveCell = function(source, dest) {
     //var sourceCell = this.cellAtCoord(sourceCoord);
     //var destCell = this.cellAtCoord(destCoord);
     if(destCell.value === null) {
-        destCell.copyFromCell(sourceCell);
-        sourceCell.value = null;
+        if(this.findPath(source, dest)){
+            destCell.copyFromCell(sourceCell);
+            sourceCell.value = null;
+        } else {
+            console.log('boop');
+        }
     } else {
         throw new HexAdd.CellNotEmptyException();
     }
@@ -130,6 +139,11 @@ HexAdd.prototype.cellClick = function(evt){
         }
     } else if (self.stateMachine.mode == 'place') {
         cell.value = self.stateMachine.placeTile;
+    } else if (self.stateMachine.mode == 'neighbor') {
+        var cellNeighbors = self.graph.neighborsOf(cell);
+        for(var i = 0; i < cellNeighbors.length; i++) {
+            cellNeighbors[i].element.css('background', 'orange');
+        }
     }
     //console.log(self)
     //console.log(cell);

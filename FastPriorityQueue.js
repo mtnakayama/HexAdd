@@ -41,7 +41,6 @@ function FastPriorityQueue(comparator) {
     this.compare = comparator || defaultcomparator;
 }
 
-
 // Add an element the the queue
 // runs in O(log n) time
 FastPriorityQueue.prototype.add = function (myval) {

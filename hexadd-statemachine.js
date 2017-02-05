@@ -1,3 +1,4 @@
+'use strict';
 HexAdd.StateMachine = function() {
     Object.defineProperty(this, 'selectedCell', {
         get: function() {return this._selectedCell},
@@ -8,7 +9,7 @@ HexAdd.StateMachine = function() {
     this._selectedCell = null;
 }
 
-HexAdd.StateMachine.prototype.togglePlaceMode = function(cell) {
+HexAdd.StateMachine.prototype.togglePlaceMode = function() {
     'use strict';
     if(this.mode != 'place') {
         this.selectedCell = null;
@@ -28,5 +29,14 @@ HexAdd.StateMachine.prototype.setSelectedCell = function(cell) {
     this._selectedCell = cell;
     if(cell !== null) {
         cell.select();
+    }
+}
+
+HexAdd.StateMachine.prototype.toggleNeighborMode = function() {
+    if(this.mode != 'neighbor') {
+        this.selectedCell = null;
+        this.mode = 'neighbor';
+    } else {
+        this.mode = 'normal';
     }
 }
