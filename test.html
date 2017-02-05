@@ -3,23 +3,23 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>HexAdd Game</title>
-        <meta name="description" content="HexAdd Puzzle Game">
+        <title>HexAdd Test</title>
+        <meta name="description" content="HexAdd Unit Tests">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--<link rel="apple-touch-icon" href="apple-touch-icon.png">-->
         <link rel="stylesheet" href="normalize.css" />
-        <link rel="stylesheet" href="gamestyle.css" />
+        <link rel="stylesheet" href="qunit-2.1.1.css" />
         <script src="modernizr.js"></script>
     </head>
     <body>
-        <div id="gameBox">
-            <div id="play-field" class="hexadd-game"></div>
-        </div>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
     <script
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="jquery-3.1.1.min.js"><\/script>')</script>
+    <script src="qunit-2.1.1.js"></script>
     <script src="FastPriorityQueue.js"></script>
     <script src="keyenum.js"></script>
     <script src="hexadd.js"></script>
@@ -28,6 +28,6 @@
     <script src="cell.js"></script>
     <script src="pathfinding.js"></script>
     <script src="hexadd-statemachine.js"></script>
-    <script src="hexadd-init.js"></script>
+    <script src="test.js"></script>
     </body>
 </html>
