@@ -7,7 +7,7 @@
   height: 100vmin;
   width: 100vmin;
 
-  background: gold;
+  background: #e8da96;
   overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -28,7 +28,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-bottom: 2%;
+  margin-bottom: -2vmin;
   width: 100vmin;
   height: 5vmin;
 }
@@ -36,8 +36,8 @@
   display: inline-block;
   width: 5vmin;
   height: 100%;
-  margin-right: 2vmin;
-  background: red;
+  margin-right: 7vmin;
+  background: #a52e4e;
 
   text-align: center;
   vertical-align: middle;
@@ -45,7 +45,7 @@
   font-size: 4vmin;
 }
 .hexadd-grid ol:nth-child(odd) {
-  margin-left: 3vmin;
+  margin-left: 6vmin;
 }
 
 .hexadd-grid .cell-selected {
