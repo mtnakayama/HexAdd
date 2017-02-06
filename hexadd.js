@@ -101,6 +101,7 @@ HexAdd.prototype.createCells = function(amount) {
 }
 
 HexAdd.prototype.placeCell = function(cell, value) {
+    var matchedCell = false;
     cell.value = value;
     var matchingNeighbors = this.findMatchingNeighbors(cell);
     console.log(matchingNeighbors);
@@ -114,12 +115,14 @@ HexAdd.prototype.placeCell = function(cell, value) {
     }*/
     //detect adding cells
     if(matchingNeighbors.length >= 4) {
+        matchedCell = true;
         var newValue = cell.value * 4;
         for(var i = 0; i < matchingNeighbors.length; i++) {
             matchingNeighbors[i].value = null;
         }
         cell.value = newValue;
     }
+    return matchedCell;
 }
 
 HexAdd.prototype.moveCell = function(source, dest) {
@@ -146,20 +149,22 @@ HexAdd.prototype.moveCell = function(source, dest) {
             var value = sourceCell.value;
             sourceCell.value = null;
 
-            this.placeCell(destCell, value);
+            var matchedCell = this.placeCell(destCell, value);
 
             //console.log(path);
-
             //create new cells
-            var newCells = this.createCells(3);
-            for(var cel = 0; cel < newCells.length; cel++) {
-                newCells[cel].element.css('color', 'darkblue');
-                window.setTimeout((function(element){
-                    return function() {
-                        element.css('color', '');
-                    }
-                })(newCells[cel].element), 750)
+            if(!matchedCell){
+                var newCells = this.createCells(3);
+                for(var cel = 0; cel < newCells.length; cel++) {
+                    newCells[cel].element.css('color', 'darkblue');
+                    window.setTimeout((function(element){
+                        return function() {
+                            element.css('color', '');
+                        }
+                    })(newCells[cel].element), 750)
+                }
             }
+
         } else {
             //No path to destCell found.
             console.log('boop');
