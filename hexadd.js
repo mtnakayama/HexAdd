@@ -151,7 +151,7 @@ HexAdd.prototype.moveCell = function(source, dest) {
             //console.log(path);
 
             //create new cells
-            var newCells = this.createCells(4);
+            var newCells = this.createCells(3);
             for(var cel = 0; cel < newCells.length; cel++) {
                 newCells[cel].element.css('color', 'darkblue');
                 window.setTimeout((function(element){
