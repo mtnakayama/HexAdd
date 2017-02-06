@@ -1,7 +1,7 @@
 'use strict';
 
 HexAdd.prototype.findMatchingNeighbors = function(cell) {
-    console.log(cell);
+    //console.log(cell);
     this.graph.forEach(function(cell){
         cell.clearNeighborData();
     })
