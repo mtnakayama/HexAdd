@@ -14,6 +14,7 @@ HexAdd.Cell = function(initObj) {
     }
     //pathfinding data
     this.clearPathfindingData();
+    this.clearNeighborData();
 }
 
 HexAdd.Cell.prototype.setValue = function(value) {
@@ -54,4 +55,8 @@ HexAdd.Cell.prototype.clearPathfindingData = function() {
     this.gScore = NaN;
     this.fScore = NaN;
     this.open = null;
+}
+
+HexAdd.Cell.prototype.clearNeighborData = function() {
+    this.evaluatedAsNeighbor = null;
 }
