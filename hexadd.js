@@ -38,6 +38,12 @@ HexAdd.prototype.handleKeyPress = function(evt) {
             case KeyEnum['3']:
             self.stateMachine.placeTile = 4;
             break;
+            case KeyEnum['4']:
+            self.stateMachine.placeTile = 8;
+            break;
+            case KeyEnum['5']:
+            self.stateMachine.placeTile = 16;
+            break;
         }
         self.updateHud();
     } else if (key == KeyEnum.n) {
@@ -104,7 +110,7 @@ HexAdd.prototype.placeCell = function(cell, value) {
     var matchedCell = false;
     cell.value = value;
     var matchingNeighbors = this.findMatchingNeighbors(cell);
-    console.log(matchingNeighbors);
+    //console.log(matchingNeighbors);
     /*for(var i = 0; i < matchingNeighbors.length; i++) {
         matchingNeighbors[i].element.css('background', 'lightblue');
         window.setTimeout((function(element){
@@ -120,7 +126,7 @@ HexAdd.prototype.placeCell = function(cell, value) {
         for(var i = 0; i < matchingNeighbors.length; i++) {
             matchingNeighbors[i].value = null;
         }
-        cell.value = newValue;
+        this.placeCell(cell, newValue);
     }
     return matchedCell;
 }
