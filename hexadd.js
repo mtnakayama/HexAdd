@@ -91,8 +91,34 @@ HexAdd.prototype.updateHud = function() {
 }
 
 HexAdd.prototype.createCells = function(amount) {
+    var newCells = [];
     for(var i=0; i < amount; i++) {
-        this.graph.randomCell().value = Math.pow(2, HexAdd.randomInt(0, 4));
+        var randomCell = this.graph.randomCell();
+        this.placeCell(randomCell, Math.pow(2, HexAdd.randomInt(0, 3)));
+        newCells.push(randomCell);
+    }
+    return newCells;
+}
+
+HexAdd.prototype.placeCell = function(cell, value) {
+    cell.value = value;
+    var matchingNeighbors = this.findMatchingNeighbors(cell);
+    console.log(matchingNeighbors);
+    /*for(var i = 0; i < matchingNeighbors.length; i++) {
+        matchingNeighbors[i].element.css('background', 'lightblue');
+        window.setTimeout((function(element){
+            return function() {
+                element.css('background', '');
+            }
+        })(matchingNeighbors[i].element), 750)
+    }*/
+    //detect adding cells
+    if(matchingNeighbors.length >= 4) {
+        var newValue = cell.value * 4;
+        for(var i = 0; i < matchingNeighbors.length; i++) {
+            matchingNeighbors[i].value = null;
+        }
+        cell.value = newValue;
     }
 }
 
@@ -106,9 +132,7 @@ HexAdd.prototype.moveCell = function(source, dest) {
     if(destCell.value === null) {
         var path = this.findPath(source, dest);
         if(path){
-            destCell.copyFromCell(sourceCell);
-            sourceCell.value = null;
-            console.log(path);
+            //display path
             for(var i = 0; i < path.length; i++) {
                 var element = path[i].element;
                 element.css('background', 'orange');
@@ -117,9 +141,27 @@ HexAdd.prototype.moveCell = function(source, dest) {
                         element.css('background', '');
                     }
                 })(element), 750);
+            }
+            //destCell.copyFromCell(sourceCell);
+            var value = sourceCell.value;
+            sourceCell.value = null;
 
+            this.placeCell(destCell, value);
+
+            //console.log(path);
+
+            //create new cells
+            var newCells = this.createCells(4);
+            for(var cel = 0; cel < newCells.length; cel++) {
+                newCells[cel].element.css('color', 'darkblue');
+                window.setTimeout((function(element){
+                    return function() {
+                        element.css('color', '');
+                    }
+                })(newCells[cel].element), 750)
             }
         } else {
+            //No path to destCell found.
             console.log('boop');
         }
     } else {
